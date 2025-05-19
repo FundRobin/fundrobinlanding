@@ -237,6 +237,12 @@ header .container {
     align-items: center;
 }
 
+@media (min-width: 1200px) {
+    .hero {
+        padding: 20px 0 60px 0; /* Increase padding for larger screens to accommodate larger hero image */
+    }
+}
+
 /* Hero decoration elements */
 .hero-decoration {
     position: absolute;
@@ -1373,7 +1379,7 @@ footer p {
     justify-content: center;
     position: relative;
     min-height: 220px;
-    max-width: 420px;
+    max-width: 550px; /* Increased from 420px to 550px */
     width: 100%;
     aspect-ratio: 4/3;
 }
@@ -1390,26 +1396,30 @@ footer p {
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.10);
     background: #fff;
-    transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
-    transform: translateX(40px);
+    transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+    transform: translateX(40px) scale(0.95);
     pointer-events: none;
 }
 
 .hero-slideshow .slide.active {
     opacity: 1;
     z-index: 2;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
     pointer-events: auto;
 }
 
 .hero-slideshow .slideshow-dots {
     position: absolute;
-    bottom: 18px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: 12px;
     z-index: 10;
+    background: rgba(0,0,0,0.15);
+    padding: 8px 14px;
+    border-radius: 30px;
+    backdrop-filter: blur(4px);
 }
 
 .hero-slideshow .dot {
@@ -1419,12 +1429,31 @@ footer p {
     background: rgba(23,85,193,0.25);
     border: 2px solid #fff;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 .hero-slideshow .dot.active {
     background: var(--accent);
     border-color: var(--accent);
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255,123,41,0.5);
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .hero-slideshow {
+        max-width: 600px; /* Larger than default, but smaller than large screen size */
+        width: 100%;
+    }
+    
+    .hero .container {
+        gap: 30px; /* Adjusted gap for this screen size */
+    }
+    
+    /* Updated slideshow dots position for tablet */
+    .hero-slideshow .slideshow-dots {
+        bottom: 15px;
+        padding: 6px 12px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -1510,4 +1539,75 @@ footer p {
     -webkit-backdrop-filter: blur(18px) saturate(140%);
     padding: 0;
     overflow: hidden;
+}
+
+@media (min-width: 1200px) {
+    .hero-slideshow {
+        max-width: 750px; /* Increase from default 420px to 750px for large screens */
+        width: 100%;
+        aspect-ratio: 4/3;
+    }
+    
+    .dashboard-wrapper.hero-slideshow {
+        border-width: 14px; /* Make border slightly thicker for larger images */
+    }
+    
+    .hero .container {
+        gap: 40px; /* Reduce gap to accommodate larger image */
+        max-width: 1400px; /* Allow more space on very wide screens */
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1600px) {
+    .hero-slideshow {
+        max-width: 850px; /* Even larger for extra wide screens */
+    }
+    
+    .hero .container {
+        max-width: 1600px; /* Expand container on very large screens */
+        gap: 60px; /* Add more spacing between content and image */
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+/* Add enhanced hero image styling */
+@media (min-width: 992px) {
+    .hero-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .dashboard-wrapper.hero-slideshow {
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Enhanced shadow for larger screens */
+        transform: perspective(1500px) rotateY(-5deg) !important; /* Slight 3D effect */
+    }
+    
+    .dashboard-wrapper.hero-slideshow:hover {
+        transform: perspective(1500px) rotateY(-2deg) !important;
+    }
+}
+
+/* Improve image quality and rendering */
+.hero-slideshow img {
+    image-rendering: -webkit-optimize-contrast; /* Improves image sharpness in Chrome */
+    will-change: transform, opacity; /* Optimizes animation performance */
+    backface-visibility: hidden; /* Prevents flickering during transitions */
+}
+
+@media (min-width: 992px) {
+    /* Apply higher quality shadow for larger screens */
+    .hero-slideshow .slide.active {
+        box-shadow: 
+            0 10px 30px rgba(0,0,0,0.15),
+            0 6px 10px rgba(0,0,0,0.12);
+    }
+}
+
+/* Center FAQ section intro text */
+.faq .section-intro {
+    text-align: center;
+    margin-bottom: 50px;
 }
