@@ -1,0 +1,70 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dashboard Background -->
+  <rect x="0" y="0" width="600" height="400" rx="10" ry="10" fill="#ffffff" stroke="#e0e0e0" stroke-width="2" />
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="600" height="50" rx="10" ry="10" fill="#1a73e8" />
+  <text x="20" y="30" font-family="Arial" font-size="18" fill="#ffffff">FundRobin.ai Dashboard</text>
+  
+  <!-- Sidebar -->
+  <rect x="0" y="50" width="150" height="350" fill="#f8f9fa" />
+  <text x="20" y="80" font-family="Arial" font-size="14" fill="#333333">Dashboard</text>
+  <text x="20" y="110" font-family="Arial" font-size="14" fill="#666666">Grant Matches</text>
+  <text x="20" y="140" font-family="Arial" font-size="14" fill="#666666">Proposals</text>
+  <text x="20" y="170" font-family="Arial" font-size="14" fill="#666666">Pipeline</text>
+  <text x="20" y="200" font-family="Arial" font-size="14" fill="#666666">Analytics</text>
+
+  <!-- Main Content -->
+  <!-- Top Stats -->
+  <rect x="170" y="70" width="120" height="80" rx="5" ry="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" />
+  <text x="190" y="95" font-family="Arial" font-size="12" fill="#666666">Grant Matches</text>
+  <text x="190" y="125" font-family="Arial" font-size="24" fill="#1a73e8">28</text>
+  
+  <rect x="310" y="70" width="120" height="80" rx="5" ry="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" />
+  <text x="330" y="95" font-family="Arial" font-size="12" fill="#666666">Active Proposals</text>
+  <text x="330" y="125" font-family="Arial" font-size="24" fill="#1a73e8">7</text>
+  
+  <rect x="450" y="70" width="120" height="80" rx="5" ry="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" />
+  <text x="470" y="95" font-family="Arial" font-size="12" fill="#666666">Success Rate</text>
+  <text x="470" y="125" font-family="Arial" font-size="24" fill="#34a853">68%</text>
+  
+  <!-- Grant Matches Table -->
+  <rect x="170" y="170" width="400" height="210" rx="5" ry="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" />
+  <text x="190" y="195" font-family="Arial" font-size="16" font-weight="bold" fill="#333333">Best Grant Matches</text>
+  
+  <!-- Table Header -->
+  <rect x="190" y="210" width="360" height="30" fill="#f8f9fa" />
+  <text x="200" y="230" font-family="Arial" font-size="12" fill="#666666">Funder</text>
+  <text x="300" y="230" font-family="Arial" font-size="12" fill="#666666">Amount</text>
+  <text x="380" y="230" font-family="Arial" font-size="12" fill="#666666">Deadline</text>
+  <text x="480" y="230" font-family="Arial" font-size="12" fill="#666666">Match %</text>
+  
+  <!-- Table Rows -->
+  <line x1="190" y1="240" x2="550" y2="240" stroke="#e0e0e0" stroke-width="1" />
+  <text x="200" y="260" font-family="Arial" font-size="12" fill="#333333">Bright Future Foundation</text>
+  <text x="300" y="260" font-family="Arial" font-size="12" fill="#333333">$75,000</text>
+  <text x="380" y="260" font-family="Arial" font-size="12" fill="#333333">Jun 15, 2025</text>
+  <text x="480" y="260" font-family="Arial" font-size="12" fill="#34a853">94%</text>
+  
+  <line x1="190" y1="270" x2="550" y2="270" stroke="#e0e0e0" stroke-width="1" />
+  <text x="200" y="290" font-family="Arial" font-size="12" fill="#333333">Global Impact Fund</text>
+  <text x="300" y="290" font-family="Arial" font-size="12" fill="#333333">$120,000</text>
+  <text x="380" y="290" font-family="Arial" font-size="12" fill="#333333">Jul 30, 2025</text>
+  <text x="480" y="290" font-family="Arial" font-size="12" fill="#34a853">89%</text>
+  
+  <line x1="190" y1="300" x2="550" y2="300" stroke="#e0e0e0" stroke-width="1" />
+  <text x="200" y="320" font-family="Arial" font-size="12" fill="#333333">Tech Innovation Grants</text>
+  <text x="300" y="320" font-family="Arial" font-size="12" fill="#333333">$50,000</text>
+  <text x="380" y="320" font-family="Arial" font-size="12" fill="#333333">Aug 22, 2025</text>
+  <text x="480" y="320" font-family="Arial" font-size="12" fill="#34a853">86%</text>
+  
+  <line x1="190" y1="330" x2="550" y2="330" stroke="#e0e0e0" stroke-width="1" />
+  <text x="200" y="350" font-family="Arial" font-size="12" fill="#333333">Community Development</text>
+  <text x="300" y="350" font-family="Arial" font-size="12" fill="#333333">$35,000</text>
+  <text x="380" y="350" font-family="Arial" font-size="12" fill="#333333">Sep 5, 2025</text>
+  <text x="480" y="350" font-family="Arial" font-size="12" fill="#34a853">82%</text>
+  
+  <!-- AI Suggestion Badge -->
+  <rect x="430" y="35" width="150" height="25" rx="12.5" ry="12.5" fill="#ff6b00" />
+  <text x="450" y="52" font-family="Arial" font-size="12" fill="#ffffff">🤖 AI Suggestions Ready</text>
+</svg>
