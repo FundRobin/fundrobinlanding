@@ -14,8 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //         header.classList.remove('scrolled');
     //     }
     // });
-      // Initialize slideshow
-    initSlideshow();
     
     // Variables to track scroll position
     let lastScrollTop = 0;
@@ -375,6 +373,63 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(style);
     }
+    
+    // Update the slideshow logic to ensure responsiveness and proper transitions
+    const heroSlideshowWrapper = document.querySelector('.dashboard-wrapper');
+    if (heroSlideshowWrapper) {
+        const slides = heroSlideshowWrapper.querySelectorAll('.slide');
+        const dots = heroSlideshowWrapper.querySelectorAll('.dot');
+        let currentSlideIndex = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+                slide.style.opacity = i === index ? '1' : '0';
+                slide.style.zIndex = i === index ? '2' : '1';
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlideIndex = index;
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopSlideshow() {
+            clearInterval(slideInterval);
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                stopSlideshow();
+                showSlide(i);
+                startSlideshow();
+            });
+        });
+
+        slides.forEach((slide) => {
+            slide.style.position = 'absolute';
+            slide.style.top = 0;
+            slide.style.left = 0;
+            slide.style.width = '100%';
+            slide.style.height = '100%';
+            slide.style.objectFit = 'cover';
+        });
+
+        heroSlideshowWrapper.style.position = 'relative';
+        heroSlideshowWrapper.style.overflow = 'hidden';
+
+        showSlide(0);
+        startSlideshow();
+    }
 });
 
 // Smooth scrolling for all anchor links
@@ -403,49 +458,3 @@ document.addEventListener('click', function(e) {
         }
     }
 });
-
-// Slideshow functionality
-function initSlideshow() {
-    const slides = document.querySelectorAll('.slideshow-slide');
-    const dots = document.querySelectorAll('.slideshow-dot');
-    let currentSlide = 0;
-    let slideInterval;
-
-    // Function to change slide
-    const changeSlide = (n) => {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        
-        // Add active class to current slide and dot
-        currentSlide = (n + slides.length) % slides.length;
-        slides[currentSlide].classList.add('active');
-        dots[currentSlide].classList.add('active');
-    };
-
-    // Auto change slide every 4 seconds
-    const startSlideshow = () => {
-        slideInterval = setInterval(() => {
-            changeSlide(currentSlide + 1);
-        }, 4000);
-    };
-
-    // Reset interval when changing slide manually
-    const resetInterval = () => {
-        clearInterval(slideInterval);
-        startSlideshow();
-    };
-
-    // Event listeners for dots
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            changeSlide(index);
-            resetInterval();
-        });
-    });
-
-    // Start slideshow
-    startSlideshow();
-}
-
-// This slideshow is initialized in the DOMContentLoaded event handler

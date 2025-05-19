@@ -60,29 +60,20 @@
                             <button type="submit" class="btn btn-primary">Get Early Access</button>
                         </div>
                         <p class="privacy-notice"><i class="fas fa-lock"></i> We respect your privacy and will never share your information.</p>
-                    </form>                </div>
-            </div>
+                    </form>
+                </div>
+            </div>            
             <div class="hero-image">
-                <div class="dashboard-wrapper pulse-glow">
-                    <div class="slideshow-container">
-                        <div class="slideshow-slide active">
-                            <img src="images/Dashboard.jpg" alt="FundRobin Dashboard">
-                        </div>
-                        <div class="slideshow-slide">
-                            <img src="images/Opportunity.jpg" alt="FundRobin Opportunity">
-                        </div>
-                        <div class="slideshow-slide">
-                            <img src="images/Drafts.jpg" alt="FundRobin Drafts">
-                        </div>
-                        <div class="slideshow-slide">
-                            <img src="images/Profile.jpg" alt="FundRobin Profile">
-                        </div>
-                        <div class="slideshow-controls">
-                            <span class="slideshow-dot active" data-slide="0"></span>
-                            <span class="slideshow-dot" data-slide="1"></span>
-                            <span class="slideshow-dot" data-slide="2"></span>
-                            <span class="slideshow-dot" data-slide="3"></span>
-                        </div>
+                <div class="dashboard-wrapper pulse-glow bubbly-frame hero-slideshow">
+                    <img src="images/Dashboard.jpg" alt="Dashboard Preview" class="slide active" loading="lazy">
+                    <img src="images/Drafts.jpg" alt="Drafts Preview" class="slide" loading="lazy">
+                    <img src="images/Opportunity.jpg" alt="Opportunity Preview" class="slide" loading="lazy">
+                    <img src="images/Profile.jpg" alt="Profile Preview" class="slide" loading="lazy">
+                    <div class="slideshow-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
                     </div>
                 </div>
             </div>
@@ -155,14 +146,6 @@
                     <p>Save hours with AI-generated proposal content</p>
                     <!-- <div class="feature-badge">Time-Saving</div> -->
                 </div>
-                <!-- <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Collaboration Tools</h3>
-                    <p>Work with your team in one central workspace</p>
-                    <div class="feature-badge">Team-Ready</div>
-                </div> -->
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
@@ -259,5 +242,50 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+// Fade-slide transition for hero slideshow
+(function() {
+    const slides = document.querySelectorAll('.hero-slideshow .slide');
+    const dots = document.querySelectorAll('.hero-slideshow .dot');
+    let current = 0;
+    let timer;
+    function showSlide(idx) {
+        slides.forEach((slide, i) => {
+            if (i === idx) {
+                slide.classList.add('active');
+                slide.style.zIndex = 2;
+                slide.style.opacity = 1;
+                slide.style.transform = 'translateX(0)';
+            } else {
+                slide.classList.remove('active');
+                slide.style.zIndex = 1;
+                slide.style.opacity = 0;
+                slide.style.transform = i < idx ? 'translateX(-40px)' : 'translateX(40px)';
+            }
+        });
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+    }
+    function nextSlide() {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+    }
+    function startSlideshow() {
+        timer = setInterval(nextSlide, 3500);
+    }
+    function stopSlideshow() {
+        clearInterval(timer);
+    }
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            stopSlideshow();
+            current = i;
+            showSlide(current);
+            startSlideshow();
+        });
+    });
+    showSlide(current);
+    startSlideshow();
+})();
+</script>
 </body>
 </html>
