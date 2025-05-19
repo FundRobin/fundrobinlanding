@@ -373,63 +373,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(style);
     }
-    
-    // Update the slideshow logic to ensure responsiveness and proper transitions
-    const heroSlideshowWrapper = document.querySelector('.dashboard-wrapper');
-    if (heroSlideshowWrapper) {
-        const slides = heroSlideshowWrapper.querySelectorAll('.slide');
-        const dots = heroSlideshowWrapper.querySelectorAll('.dot');
-        let currentSlideIndex = 0;
-        let slideInterval;
-
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-                slide.style.opacity = i === index ? '1' : '0';
-                slide.style.zIndex = i === index ? '2' : '1';
-            });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-            currentSlideIndex = index;
-        }
-
-        function nextSlide() {
-            const nextIndex = (currentSlideIndex + 1) % slides.length;
-            showSlide(nextIndex);
-        }
-
-        function startSlideshow() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function stopSlideshow() {
-            clearInterval(slideInterval);
-        }
-
-        dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                stopSlideshow();
-                showSlide(i);
-                startSlideshow();
-            });
-        });
-
-        slides.forEach((slide) => {
-            slide.style.position = 'absolute';
-            slide.style.top = 0;
-            slide.style.left = 0;
-            slide.style.width = '100%';
-            slide.style.height = '100%';
-            slide.style.objectFit = 'cover';
-        });
-
-        heroSlideshowWrapper.style.position = 'relative';
-        heroSlideshowWrapper.style.overflow = 'hidden';
-
-        showSlide(0);
-        startSlideshow();
-    }
 });
 
 // Smooth scrolling for all anchor links
@@ -457,4 +400,171 @@ document.addEventListener('click', function(e) {
             }, 1500);
         }
     }
+});
+
+// Hero Slideshow Implementation with enhanced features
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all slideshows
+    const slideshows = document.querySelectorAll('.hero-slideshow');
+    
+    slideshows.forEach(slideshow => {
+        const slides = Array.from(slideshow.querySelectorAll('.slide'));
+        const dots = Array.from(slideshow.querySelectorAll('.dot'));
+        let currentSlideIndex = 0;
+        let slideInterval;
+        let touchStartX = 0;
+        let touchEndX = 0;
+          // Function to show a specific slide
+        function showSlide(index) {
+            // Ensure the index is within bounds using modulo for proper looping
+            index = ((index % slides.length) + slides.length) % slides.length;
+            
+            // Update current index
+            currentSlideIndex = index;
+            
+            // Remove active class from all slides and dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Add active class to current slide and dot
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+        
+        // Functions for navigation
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+        }
+        
+        function prevSlide() {
+            showSlide(currentSlideIndex - 1);
+        }
+        
+        // Set up automatic slideshow with reset
+        function startSlideshow() {
+            // Clear any existing interval
+            clearInterval(slideInterval);
+            
+            // Set new interval
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+        
+        // Set up click handlers for dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSlide(index);
+                startSlideshow(); // Reset the interval when manually changing slides
+            });
+        });
+        
+        // Touch events for mobile swipe
+        slideshow.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        slideshow.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        // Handle the swipe direction
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX - touchStartX > swipeThreshold) {
+                // Swipe right - go to previous slide
+                prevSlide();
+                startSlideshow();
+            } else if (touchStartX - touchEndX > swipeThreshold) {
+                // Swipe left - go to next slide
+                nextSlide();
+                startSlideshow();
+            }
+        }
+        
+        // Add keyboard navigation when slideshow is in focus
+        slideshow.tabIndex = 0; // Make it focusable
+        slideshow.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                startSlideshow();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                startSlideshow();
+            }
+        });
+        
+        // Initialize slideshow
+        showSlide(0); // Ensure we start at the first slide
+        startSlideshow();
+        
+        // Pause slideshow when mouse is over it
+        slideshow.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        // Resume slideshow when mouse leaves
+        slideshow.addEventListener('mouseleave', () => {
+            startSlideshow();
+        });
+    });
+});
+
+// Add accessibility features to slideshows
+document.addEventListener('DOMContentLoaded', function() {
+    const slideshows = document.querySelectorAll('.hero-slideshow');
+    
+    slideshows.forEach(slideshow => {
+        // Add ARIA attributes for accessibility
+        slideshow.setAttribute('aria-roledescription', 'carousel');
+        slideshow.setAttribute('aria-label', 'Screenshot slideshow');
+        
+        // Add accessibility attributes to slides
+        const slides = slideshow.querySelectorAll('.slide');
+        slides.forEach((slide, index) => {
+            slide.setAttribute('aria-roledescription', 'slide');
+            slide.setAttribute('aria-label', `Slide ${index + 1} of ${slides.length}`);
+            
+            // Set aria-hidden based on active state
+            if (slide.classList.contains('active')) {
+                slide.setAttribute('aria-hidden', 'false');
+            } else {
+                slide.setAttribute('aria-hidden', 'true');
+            }
+        });
+        
+        // Add accessibility attributes to dots
+        const dots = slideshow.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.setAttribute('role', 'button');
+            dot.setAttribute('aria-label', `Show slide ${index + 1}`);
+            dot.setAttribute('tabindex', '0');
+            
+            // Make dots keyboard navigable
+            dot.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dot.click();
+                }
+            });
+        });
+        
+        // Monitor for slides changing to update ARIA states
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const slide = mutation.target;
+                    if (slide.classList.contains('active')) {
+                        slide.setAttribute('aria-hidden', 'false');
+                    } else {
+                        slide.setAttribute('aria-hidden', 'true');
+                    }
+                }
+            });
+        });
+        
+        slides.forEach((slide) => {
+            observer.observe(slide, { attributes: true });
+        });
+    });
 });

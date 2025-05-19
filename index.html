@@ -62,13 +62,14 @@
                         <p class="privacy-notice"><i class="fas fa-lock"></i> We respect your privacy and will never share your information.</p>
                     </form>
                 </div>
-            </div>            
-            <div class="hero-image">
-                <div class="dashboard-wrapper pulse-glow bubbly-frame hero-slideshow">
-                    <img src="images/Dashboard.jpg" alt="Dashboard Preview" class="slide active" loading="lazy">
-                    <img src="images/Drafts.jpg" alt="Drafts Preview" class="slide" loading="lazy">
-                    <img src="images/Opportunity.jpg" alt="Opportunity Preview" class="slide" loading="lazy">
-                    <img src="images/Profile.jpg" alt="Profile Preview" class="slide" loading="lazy">
+            </div>            <div class="hero-image">
+                <div class="hero-slideshow-container">
+                    <div class="dashboard-wrapper pulse-glow bubbly-frame hero-slideshow">
+                        <img src="images/Dashboard.jpg" alt="Dashboard Preview" class="slide active" loading="lazy">
+                        <img src="images/Drafts.jpg" alt="Drafts Preview" class="slide" loading="lazy">
+                        <img src="images/Opportunity.jpg" alt="Opportunity Preview" class="slide" loading="lazy">
+                        <img src="images/Profile.jpg" alt="Profile Preview" class="slide" loading="lazy">
+                    </div>
                     <div class="slideshow-dots">
                         <span class="dot active"></span>
                         <span class="dot"></span>
@@ -239,53 +240,7 @@
                 <p>&copy; 2025 FundRobin. All rights reserved.</p>
             </div>
         </div>
-    </footer>
-
-    <script src="js/script.js"></script>
-    <script>
-// Fade-slide transition for hero slideshow
-(function() {
-    const slides = document.querySelectorAll('.hero-slideshow .slide');
-    const dots = document.querySelectorAll('.hero-slideshow .dot');
-    let current = 0;
-    let timer;
-    function showSlide(idx) {
-        slides.forEach((slide, i) => {
-            if (i === idx) {
-                slide.classList.add('active');
-                slide.style.zIndex = 2;
-                slide.style.opacity = 1;
-                slide.style.transform = 'translateX(0)';
-            } else {
-                slide.classList.remove('active');
-                slide.style.zIndex = 1;
-                slide.style.opacity = 0;
-                slide.style.transform = i < idx ? 'translateX(-40px)' : 'translateX(40px)';
-            }
-        });
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
-    }
-    function nextSlide() {
-        current = (current + 1) % slides.length;
-        showSlide(current);
-    }
-    function startSlideshow() {
-        timer = setInterval(nextSlide, 3500);
-    }
-    function stopSlideshow() {
-        clearInterval(timer);
-    }
-    dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-            stopSlideshow();
-            current = i;
-            showSlide(current);
-            startSlideshow();
-        });
-    });
-    showSlide(current);
-    startSlideshow();
-})();
-</script>
+    </footer>    <script src="js/script.js"></script>
+    <script src="js/slideshow.js"></script>
 </body>
 </html>
