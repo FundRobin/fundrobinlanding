@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //         header.classList.remove('scrolled');
     //     }
     // });
+      // Initialize slideshow
+    initSlideshow();
     
     // Variables to track scroll position
     let lastScrollTop = 0;
@@ -401,3 +403,49 @@ document.addEventListener('click', function(e) {
         }
     }
 });
+
+// Slideshow functionality
+function initSlideshow() {
+    const slides = document.querySelectorAll('.slideshow-slide');
+    const dots = document.querySelectorAll('.slideshow-dot');
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Function to change slide
+    const changeSlide = (n) => {
+        // Remove active class from all slides and dots
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Add active class to current slide and dot
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    };
+
+    // Auto change slide every 4 seconds
+    const startSlideshow = () => {
+        slideInterval = setInterval(() => {
+            changeSlide(currentSlide + 1);
+        }, 4000);
+    };
+
+    // Reset interval when changing slide manually
+    const resetInterval = () => {
+        clearInterval(slideInterval);
+        startSlideshow();
+    };
+
+    // Event listeners for dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            changeSlide(index);
+            resetInterval();
+        });
+    });
+
+    // Start slideshow
+    startSlideshow();
+}
+
+// This slideshow is initialized in the DOMContentLoaded event handler
