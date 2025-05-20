@@ -17,9 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Initialize - show first slide
         slides[0].classList.add('active');
-        dots[0].classList.add('active');
-
-        // Function to scroll to a specific slide
+        dots[0].classList.add('active');        // Function to scroll to a specific slide
         function scrollToSlide(index) {
             // Normalize the index (ensure it loops properly)
             index = ((index % slides.length) + slides.length) % slides.length;
@@ -32,12 +30,16 @@ document.addEventListener('DOMContentLoaded', function() {
             slides[index].classList.add('active');
             dots[index].classList.add('active');
             
-            // Scroll to the slide
-            slides[index].scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'center'
-            });
+            // Get current scroll position to restore it later
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
+            
+            // Scroll the slideshow container horizontally instead of using scrollIntoView
+            const slidePosition = slides[index].offsetLeft;
+            slideshow.scrollLeft = slidePosition;
+            
+            // Restore the page scroll position to prevent jumping to the top
+            window.scrollTo(scrollX, scrollY);
         }
 
         // Set up click handlers for the dots
